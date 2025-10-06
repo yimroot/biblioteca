@@ -14,6 +14,19 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="biblioteca_libro_form">
+      <field name="name">biblioteca libro form</field>
+      <field name="model">biblioteca.libro</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+           <field name="description"/>
+        </form>
+      </field>
+    </record>
+
 
     <!-- actions opening views on models -->
 
@@ -44,10 +57,9 @@
     <menuitem name="biblioteca" id="menu_root_biblioteca"/>
 
     <menuitem name="Libro"
-    id="biblioteca_libro_menu"
+    id="biblioteca_Libro_menu"
     parent="menu_root_biblioteca"
-    action="biblioteca_libro_action_window"
-    />
+    action="biblioteca_libro_action_window"/>
 
 
 
