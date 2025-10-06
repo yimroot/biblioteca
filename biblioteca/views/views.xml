@@ -23,7 +23,7 @@
           <field name="value"/>
           <field name="value2"/>
           <field name="description"/>
-        </form>
+        </list>
       </field>
     </record>
 
