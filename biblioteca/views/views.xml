@@ -22,8 +22,8 @@
           <field name="name"/>
           <field name="value"/>
           <field name="value2"/>
-           <field name="description"/>
-        </form>
+          <field name="description"/>
+        </list>
       </field>
     </record>
 
@@ -50,15 +50,15 @@
           "res_model": model._name,
         }
       </field>
-    </record>-->
+    </record>
+-->
 
     <!-- Top menu item -->
 
-    <menuitem name="biblioteca" id="menu_root_biblioteca"/>
-
-    <menuitem name="Libro"
-    id="biblioteca_Libro_menu"
-    parent="menu_root_biblioteca"
+    <menuitem name="Biblioteca" id="biblioteca_menu"/>
+    <menuitem name="Libro menu" 
+    id="biblioteca.libro"
+    parent="biblioteca.biblioteca_menu"
     action="biblioteca_libro_action_window"/>
 
 

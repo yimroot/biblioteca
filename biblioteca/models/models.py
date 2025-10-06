@@ -2,8 +2,7 @@
 
 from odoo import models, fields, api
 
-
-class BibliotecalIBRO(models.Model):
+class biblioteca(models.Model):
     _name = 'biblioteca.libro'
     _description = 'biblioteca.biblioteca'
 
