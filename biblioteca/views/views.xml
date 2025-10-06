@@ -2,7 +2,7 @@
   <data>
     <!-- explicit list view definition -->
 
-    <record model="ir.ui.view" id="biblioteca_Libro_list">
+    <record model="ir.ui.view" id="biblioteca_libro_list">
       <field name="name">biblioteca libro list</field>
       <field name="model">biblioteca.libro</field>
       <field name="arch" type="xml">
