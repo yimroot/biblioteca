@@ -20,17 +20,17 @@
       <field name="arch" type="xml">
       <form>
         <group>
-        <list>
           <field name="firstname"/>
           <field name="autor"/>
-          <field name="vslue"/>
+          <field name="value"/>
           <field name="value2"/>
           <field name="description"/>
-        </list>
-      </field>
-    </record>
+        </group>
+      </form>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="biblioteca_autor_list">
+    <record model="ir.ui.view" id="view_biblioteca_autor_list">
       <field name="name">biblioteca autor list</field>
       <field name="model">biblioteca.autor</field>
       <field name="arch" type="xml">
@@ -47,10 +47,10 @@
       <field name="arch" type="xml">
        <form>
         <group>
-        <list>
           <field name="firstname"/>
           <field name="lastname"/>
-        </list>
+          </group>
+        </form>
       </field>
     </record>
 
@@ -99,9 +99,9 @@
 
 
     <menuitem name="Autor menu" 
-    id="biblioteca.AUTOR"
+    id="biblioteca.autor"
     parent="biblioteca.biblioteca_menu"
-    action="biblioteca_AUTOR_action_window"/>
+    action="biblioteca_autor_action_window"/>
 
 
 
