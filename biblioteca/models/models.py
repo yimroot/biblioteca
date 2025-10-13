@@ -25,9 +25,38 @@ class BiliotecaAutor(models.Model):
 
    firstname=fields.Char()
    lastname=fields.Char()
+   libros_autor = fields.Many2one('biblioteca.libro',
+                                     relation="Libro_autor_real",
+                                     column1="autor_id" , colum_2="libro_id", string='Libros autor ')
   
    @api.depends('firstname' , 'lastname' )
    def _compute_display_name(self):
         for record in self:
             record.display_name = f"{record.firstname} {record.lastname}"
             
+
+class BibliotecaUsuario(models.Model):
+   _name='biblioteca.usuario'
+   _description='biblioteca.usuario'
+
+   firstname=fields.Char()
+   lastname=fields.Char()
+   email=fields.Char()
+   telefono=fields.Char()
+  
+   @api.depends('firstname' , 'lastname' )
+   def _compute_display_name(self):
+        for record in self:
+            record.display_name = f"{record.firstname} {record.lastname}"
+
+
+class BibliotecaMulta(models.Model):
+   _name='biblioteca.multa'
+   _description='biblioteca.multa'
+
+   usuario_id=fields.Many2one('biblioteca.usuario')
+   monto=fields.Float()
+   fecha_multa=fields.Date()
+   motivo=fields.Char()
+   
+   

@@ -1,7 +1,7 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-
+    
     <record model="ir.ui.view" id="view_biblioteca_libro_list">
       <field name="name">biblioteca libro list</field>
       <field name="model">biblioteca.libro</field>
@@ -18,17 +18,17 @@
       <field name="name">biblioteca libro form</field>
       <field name="model">biblioteca.libro</field>
       <field name="arch" type="xml">
-      <form>
-        <group>
-          <field name="firstname"/>
-          <field name="autor"/>
-          <field name="value"/>
-          <field name="value2"/>
-          <field name="description"/>
-        </group>
-      </form>
-    </field>
-  </record>
+        <form>
+          <group>
+            <field name="firstname"/>
+            <field name="autor"/>
+            <field name="value"/>
+            <field name="value2"/>
+            <field name="description"/>
+          </group>
+        </form>
+      </field>
+    </record>
 
     <record model="ir.ui.view" id="view_biblioteca_autor_list">
       <field name="name">biblioteca autor list</field>
@@ -37,6 +37,7 @@
         <list>
           <field name="firstname"/>
           <field name="lastname"/>
+          <field name="libros_autor"/>
         </list>
       </field>
     </record>
@@ -45,19 +46,72 @@
       <field name="name">biblioteca autor form</field>
       <field name="model">biblioteca.autor</field>
       <field name="arch" type="xml">
-       <form>
-        <group>
-          <field name="firstname"/>
-          <field name="lastname"/>
+        <form>
+          <group>
+            <field name="firstname"/>
+            <field name="lastname"/>
+             <field name="libros_autor"/>
           </group>
         </form>
       </field>
     </record>
 
+    <record model="ir.ui.view" id="view_biblioteca_usuario_list">
+      <field name="name">biblioteca usuario list</field>
+      <field name="model">biblioteca.usuario</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="firstname"/>
+          <field name="lastname"/>
+          <field name="email"/>
+        </list>
+      </field>
+    </record>
 
+    <record model="ir.ui.view" id="view_biblioteca_usuario_form">
+      <field name="name">biblioteca usuario form</field>
+      <field name="model">biblioteca.usuario</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="firstname"/>
+            <field name="lastname"/>
+            <field name="email"/>
+            <field name="telefono"/>
+          </group>
+        </form>
+      </field>
+    </record>
 
+    <record model="ir.ui.view" id="view_biblioteca_multa_list">
+      <field name="name">biblioteca multa list</field>
+      <field name="model">biblioteca.multa</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="usuario_id"/>
+          <field name="monto"/>
+          <field name="fecha_multa"/>
+        </list>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_biblioteca_multa_form">
+      <field name="name">biblioteca multa form</field>
+      <field name="model">biblioteca.multa</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="usuario_id"/>
+            <field name="monto"/>
+            <field name="fecha_multa"/>
+            <field name="motivo"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    
     <!-- actions opening views on models -->
-
+    
     <record model="ir.actions.act_window" id="biblioteca_libro_action_window">
       <field name="name">biblioteca libro window</field>
       <field name="res_model">biblioteca.libro</field>
@@ -70,7 +124,18 @@
       <field name="view_mode">list,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="biblioteca_usuario_action_window">
+      <field name="name">biblioteca usuarios</field>
+      <field name="res_model">biblioteca.usuario</field>
+      <field name="view_mode">list,form</field>
+    </record>
 
+    <record model="ir.actions.act_window" id="biblioteca_multa_action_window">
+      <field name="name">biblioteca multas</field>
+      <field name="res_model">biblioteca.multa</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    
     <!-- server action to the one above -->
 <!--
     <record model="ir.actions.server" id="biblioteca.action_server">
@@ -88,25 +153,29 @@
 -->
 
     <!-- Top menu item -->
-
     
     <menuitem name="Biblioteca" id="biblioteca_menu"/>
 
     <menuitem name="Libro menu" 
     id="biblioteca.libro"
-    parent="biblioteca.biblioteca_menu"
+    parent="biblioteca_menu"
     action="biblioteca_libro_action_window"/>
-
-
+    
     <menuitem name="Autor menu" 
     id="biblioteca.autor"
-    parent="biblioteca.biblioteca_menu"
+    parent="biblioteca_menu"
     action="biblioteca_autor_action_window"/>
 
+    <menuitem name="Usuario menu" 
+    id="biblioteca.usuario"
+    parent="biblioteca_menu"
+    action="biblioteca_usuario_action_window"/>
 
-
-
-
+    <menuitem name="Multa menu" 
+    id="biblioteca.multa"
+    parent="biblioteca_menu"
+    action="biblioteca_multa_action_window"/>
+    
     <!-- menu categories -->
 <!--
     <menuitem name="Menu 1" id="biblioteca.menu_1" parent="biblioteca.menu_root"/>
