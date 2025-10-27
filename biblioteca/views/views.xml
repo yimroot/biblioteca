@@ -82,6 +82,7 @@
             <field name="lastname"/>
             <field name="email"/>
             <field name="telefono"/>
+            <field name="cedula"/>
           </group>
         </form>
       </field>

@@ -67,18 +67,22 @@ class BiliotecaAutor(models.Model):
 
 
 class BibliotecaUsuario(models.Model):
-   _name = 'biblioteca.usuario'
-   _description = 'biblioteca.usuario'
+    _name = 'biblioteca.usuario'
+    _description = 'biblioteca.usuario'
 
-   firstname = fields.Char()
-   lastname = fields.Char()
-   email = fields.Char()
-   telefono = fields.Char()
+    firstname = fields.Char()
+    lastname = fields.Char()
+    email = fields.Char()
+    telefono = fields.Char()
+    cedula = fields.Char(string="Cédula", size=10)
 
-   @api.depends('firstname', 'lastname')
-   def _compute_display_name(self):
+    @api.constrains('cedula')
+    def _check_cedula(self):
         for record in self:
-            record.display_name = f"{record.firstname} {record.lastname}"
+            if record.cedula:
+                # Validar que sea solo dígitos y longitud 10
+                if len(record.cedula) != 10 or not record.cedula.isdigit():
+                    raise ValidationError("La cédula debe tener exactamente 10 números.")
 
 
 class BibliotecaMulta(models.Model):
