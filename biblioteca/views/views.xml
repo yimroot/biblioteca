@@ -1,34 +1,38 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-    
-    <record model="ir.ui.view" id="view_biblioteca_libro_list">
-      <field name="name">biblioteca libro list</field>
-      <field name="model">biblioteca.libro</field>
-      <field name="arch" type="xml">
+    <record id="view_biblioteca_libro_list" model="ir.ui.view">
+    <field name="name">biblioteca libro list</field>
+    <field name="model">biblioteca.libro</field>
+    <field name="arch" type="xml">
         <list>
-          <field name="firstname"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </list>
-      </field>
-    </record>
-
-    <record model="ir.ui.view" id="view_biblioteca_libro_form">
-      <field name="name">biblioteca libro form</field>
-      <field name="model">biblioteca.libro</field>
-      <field name="arch" type="xml">
-        <form>
-          <group>
             <field name="firstname"/>
-            <field name="autor"/>
             <field name="value"/>
             <field name="value2"/>
-            <field name="description"/>
-          </group>
+        </list>
+    </field>
+</record>
+
+<record id="view_biblioteca_libro_form" model="ir.ui.view">
+    <field name="name">biblioteca libro form</field>
+    <field name="model">biblioteca.libro</field>
+    <field name="arch" type="xml">
+        <form>
+            <group>
+                <field name="isbn"/>
+                <button name="buscar_libro_por_isbn" string="Buscar por ISBN" type="object" class="btn-primary"/>
+            </group>
+            <group>
+                <field name="firstname"/>
+                <field name="autor"/>
+                <field name="description"/>
+                <field name="value"/>
+                <field name="value2"/>
+            </group>
         </form>
-      </field>
-    </record>
+    </field>
+</record>
+
 
     <record model="ir.ui.view" id="view_biblioteca_autor_list">
       <field name="name">biblioteca autor list</field>
