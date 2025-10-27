@@ -124,10 +124,37 @@ class BibliotecaPrestamos(models.Model):
     def generar_prestamo(self):
         print("Generando prestamo")
         self.write({'estado': 'p'})
+        
+    def _cron_multas(self):
+         prestamos = self.env['biblioteca.prestamo'].search([('estado','=','p'),'|',('fecha_max','<',datetime.now())])
+
+         for prestamo in prestamos:
+             prestamo.write({'estado':'m',
+                             'multa_bool':True,
+                             'multa':1.0})
+
+         seq=self.env.ref('biblioteca.sequence_codigo_multa').next_by_code('biblioteca.multa')
+         multa = self.env['biblioteca.multa'].create({'codigo':seq,
+                                                     'multa':f'F prestado a {prestamo.usuario_id.firstname} el libro {prestamo.libro_id.firstname}',
+                                                     'monto':prestamo.multa,
+                                                     'fecha_multa':datetime.now(),
+                                                     'prestamo':prestamo.id})
+
+         prestamos = self.env['biblioteca.prestamo'].search([('estado','=','m')])
+         for prestamo in prestamos:
+                 multa=self.env['biblioteca.multa'].search([('prestamo','=',prestamo.id)])
+                 days=(datetime.now() - prestamo.fecha_max).days
+                 multa.write({'monto': days})
+                 prestamo.write({'multa': days})
+                 
+        
+        
+        
 
     @api.depends('fecha_max', 'fecha_prestamo')
     def _compute_fecha_devo(self):
         for record in self:
             record.fecha_max = record.fecha_prestamo + timedelta(days=2)
+            
 
    
