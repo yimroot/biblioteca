@@ -8,7 +8,6 @@ class BibliotecaMulta(models.Model):
     codigo = fields.Char(string='Código de multa')
     usuario = fields.Many2one('biblioteca.usuario', string='Usuario')
     monto = fields.Float(string='Monto a pagar')
-    
     motivo = fields.Selection([
         ('atraso', 'Atraso'),
         ('danio', 'Daño'),
@@ -33,5 +32,3 @@ class BibliotecaMulta(models.Model):
                 multa.prestamo_id.write({'estado': 'pg'})
             
        
-    
-        

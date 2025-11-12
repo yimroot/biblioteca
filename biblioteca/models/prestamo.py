@@ -100,4 +100,3 @@ class BibliotecaPrestamos(models.Model):
                 'motivo_multa': motivo
             })
 
-    
