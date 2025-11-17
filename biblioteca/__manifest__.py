@@ -22,11 +22,16 @@ Long description of module's purpose
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
-        'views/views.xml',
-        'data/sequence.xml',
-        'views/templates.xml',
-    ],
+    'security/ir.model.access.csv',
+    'data/sequence.xml',
+    'views/menu.xml',
+    'views/biblioteca.libro.xml',
+    'views/biblioteca.autor.xml',
+    'views/biblioteca.usuario.xml',
+    'views/biblioteca.prestamo.xml',
+    'views/biblioteca.multa.xml',
+    'views/templates.xml',
+],
     # only loaded in demonstration mode
     #'demo': [
     #   'demo/demo.xml',
