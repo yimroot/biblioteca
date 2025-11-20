@@ -26,7 +26,7 @@ Long description of module's purpose
     'data/sequence.xml',
     'views/menu.xml',
     'views/biblioteca.libro.xml',
-    'views/biblioteca.autor.xml',
+    'views/biblioteca.reserva.xml',
     'views/biblioteca.usuario.xml',
     'views/biblioteca.prestamo.xml',
     'views/biblioteca.multa.xml',

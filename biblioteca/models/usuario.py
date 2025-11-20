@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 class BibliotecaUsuario(models.Model):
     _name = 'biblioteca.usuario'
     _description = 'Usuario de la biblioteca'
+    _rec_name = "firstname"
 
     firstname = fields.Char()
     lastname = fields.Char()

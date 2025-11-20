@@ -37,6 +37,9 @@
         </record>
 
         <!-- Menú de Usuario -->
-        <menuitem name="Usuarios" id="biblioteca.usuario" parent="biblioteca_menu" action="biblioteca_usuario_action_window"/>
+        <menuitem name="Usuarios" 
+        id="biblioteca.usuario" 
+        parent="biblioteca_menu" 
+        action="biblioteca_usuario_action_window"/>
     </data>
 </odoo>

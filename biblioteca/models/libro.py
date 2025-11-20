@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 import requests
@@ -9,16 +8,38 @@ class BibliotecaLibro(models.Model):
     _rec_name = 'firstname'
 
     firstname = fields.Char(string='Nombre Libro')
-    value = fields.Integer(string='Número de ejemplares')
-    value2 = fields.Float(compute="_value_pc", store=True, string="Costo")
-    autor = fields.Many2one('biblioteca.autor', string='Autor Libro')
+    value = fields.Integer(string='Número de ejemplares', default=2)
+    reservado = fields.Integer(string='Ejemplares reservados', default=0)  # CAMBIO AÑADIDO
+    ejemplares_str = fields.Char(string='Ejemplares', compute='_compute_ejemplares_str', store=True) # CAMBIO AÑADIDO
     description = fields.Text(string='Resumen Libro')
     isbn = fields.Char(string='ISBN')
 
-    @api.depends('value')
-    def _value_pc(self):
+    @api.depends('value', 'reservado')
+    def _compute_ejemplares_str(self):
         for record in self:
-            record.value2 = float(record.value) / 100
+            disponibles = record.value - record.reservado
+            if disponibles > 0:
+                record.ejemplares_str = f"{disponibles}/{record.value}"
+            else:
+                record.ejemplares_str = "Fuera de stock"
+
+    def reservar_libro(self):
+        for record in self:
+            disponibles = record.value - record.reservado
+            if disponibles <= 0:
+                raise ValidationError("No hay ejemplares disponibles para reservar")
+            record.reservado += 1
+            record._compute_ejemplares_str()
+            codigo = self.env['ir.sequence'].next_by_code('biblioteca.reserva') or "RESERVA001"
+            self.env['biblioteca.reserva'].create({
+                'libro_id': record.id,
+                'codigo': codigo,
+                'nombre_libro': record.firstname,
+                'descripcion_libro': record.description,
+                'isbn_libro': record.isbn,
+                'cantidad': 1,
+                'ejemplares_str': record.ejemplares_str,
+            })
 
     def buscar_libro_por_isbn(self):
         for record in self:
@@ -28,20 +49,11 @@ class BibliotecaLibro(models.Model):
             response = requests.get(url)
             if response.status_code != 200:
                 raise ValidationError("Error al conectar con OpenLibrary")
-
             data = response.json()
             key = f'ISBN:{record.isbn}'
             if key in data:
                 book_data = data[key]
                 record.firstname = book_data.get('title', '')
-                authors = book_data.get('authors', [])
-                if authors:
-                    author_name = authors[0].get('name', '')
-                    autor_obj = self.env['biblioteca.autor'].search([('firstname', '=', author_name)], limit=1)
-                    if not autor_obj:
-                        autor_obj = self.env['biblioteca.autor'].create({'firstname': author_name})
-                    record.autor = autor_obj.id
-
                 publish_date = book_data.get('publish_date', '')
                 record.description = f"Publicado en: {publish_date}"
             else:

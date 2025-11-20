@@ -28,6 +28,7 @@
                     <header>
                         <field name="estado" widget="statusbar"/>
                     </header>
+                        <group colspan="2">
                     <group string="Datos de Préstamo">
                         <field name="usuario" options="{'no_create': true }"/>
                         <field name="libro" />
@@ -41,7 +42,8 @@
                         <field name="motivo_multa"/>
                         <field name="multa_bol"/>
                         <field name="multa"/>
-                        <button string="Generar Multa" type="object" name="generar_multa"/>
+                        <button string="Generar Multa" type="object" name="generar_multa" class="btn-danger"/>
+                        </group>
                     </group>
                     <group>
                         <field name="personal" readonly="1"/>
